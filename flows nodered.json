@@ -1,0 +1,207 @@
+[
+    {
+        "id": "5f9ba88c2923eb62",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3c5f2b6c2c9a9537",
+        "type": "serial in",
+        "z": "5f9ba88c2923eb62",
+        "name": "",
+        "serial": "210467094d373efc",
+        "x": 570,
+        "y": 320,
+        "wires": [
+            [
+                "907fbea8c0479775"
+            ]
+        ]
+    },
+    {
+        "id": "907fbea8c0479775",
+        "type": "json",
+        "z": "5f9ba88c2923eb62",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 750,
+        "y": 320,
+        "wires": [
+            [
+                "d2c2634d3a84812e",
+                "82746990dc043e1a",
+                "5b093166031ea632"
+            ]
+        ]
+    },
+    {
+        "id": "82746990dc043e1a",
+        "type": "debug",
+        "z": "5f9ba88c2923eb62",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "d2c2634d3a84812e",
+        "type": "function",
+        "z": "5f9ba88c2923eb62",
+        "name": "function 1",
+        "func": "var currentDate = new Date();\n\nvar B = {\n    payload: {\n        \"variable\": \"distancia\",\n        \"unit\": \"centimetros\",\n        \"value\": msg.payload.distance.toString(),\n        \"location\": { \"lat\": -23.57314101879612, \"lng\": -46.62305573863933 }\n    }\n};\n\nreturn B;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 280,
+        "wires": [
+            [
+                "9a491cf50052f53d",
+                "d728de017f4c4473"
+            ]
+        ]
+    },
+    {
+        "id": "9a491cf50052f53d",
+        "type": "mqtt out",
+        "z": "5f9ba88c2923eb62",
+        "name": "",
+        "topic": "1ESA/iot/ultrassonico",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "d322c9677de1fd74",
+        "x": 1180,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d728de017f4c4473",
+        "type": "mqtt out",
+        "z": "5f9ba88c2923eb62",
+        "name": "",
+        "topic": "tago/data/post",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "447c16e4179d4104",
+        "x": 1160,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "5b093166031ea632",
+        "type": "function",
+        "z": "5f9ba88c2923eb62",
+        "name": "function 2",
+        "func": "var B = {\n    payload: {\n        \"variable\": \"ledPin\",\n        \"value\": msg.payload.led.toString()\n    }\n};\n\nreturn B;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 200,
+        "wires": [
+            [
+                "d728de017f4c4473",
+                "9a491cf50052f53d"
+            ]
+        ]
+    },
+    {
+        "id": "210467094d373efc",
+        "type": "serial-port",
+        "serialport": "COM4",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "d322c9677de1fd74",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtt-dashboard.com",
+        "port": "1883",
+        "clientid": "leonardo_rainha",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "447c16e4179d4104",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtt.tago.io",
+        "port": "1883",
+        "clientid": "leonardo_schunck",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
